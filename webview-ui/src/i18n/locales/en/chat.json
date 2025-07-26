@@ -166,46 +166,46 @@
 		"tokens": "tokens"
 	},
 	"instructions": {
-		"wantsToFetch": "Roo wants to fetch detailed instructions to assist with the current task"
+		"wantsToFetch": "AllyTopic Coder wants to fetch detailed instructions to assist with the current task"
 	},
 	"fileOperations": {
-		"wantsToRead": "Roo wants to read this file:",
-		"wantsToReadMultiple": "Roo wants to read multiple files:",
-		"wantsToReadAndXMore": "Roo wants to read this file and {{count}} more:",
-		"wantsToReadOutsideWorkspace": "Roo wants to read this file outside of the workspace:",
-		"didRead": "Roo read this file:",
-		"wantsToEdit": "Roo wants to edit this file:",
-		"wantsToEditOutsideWorkspace": "Roo wants to edit this file outside of the workspace:",
-		"wantsToEditProtected": "Roo wants to edit a protected configuration file:",
-		"wantsToApplyBatchChanges": "Roo wants to apply changes to multiple files:",
-		"wantsToCreate": "Roo wants to create a new file:",
-		"wantsToSearchReplace": "Roo wants to search and replace in this file:",
-		"didSearchReplace": "Roo performed search and replace on this file:",
-		"wantsToInsert": "Roo wants to insert content into this file:",
-		"wantsToInsertWithLineNumber": "Roo wants to insert content into this file at line {{lineNumber}}:",
-		"wantsToInsertAtEnd": "Roo wants to append content to the end of this file:"
+		"wantsToRead": "AllyTopic Coder wants to read this file:",
+		"wantsToReadMultiple": "AllyTopic Coder wants to read multiple files:",
+		"wantsToReadAndXMore": "AllyTopic Coder wants to read this file and {{count}} more:",
+		"wantsToReadOutsideWorkspace": "AllyTopic Coder wants to read this file outside of the workspace:",
+		"didRead": "AllyTopic Coder read this file:",
+		"wantsToEdit": "AllyTopic Coder wants to edit this file:",
+		"wantsToEditOutsideWorkspace": "AllyTopic Coder wants to edit this file outside of the workspace:",
+		"wantsToEditProtected": "AllyTopic Coder wants to edit a protected configuration file:",
+		"wantsToApplyBatchChanges": "AllyTopic Coder wants to apply changes to multiple files:",
+		"wantsToCreate": "AllyTopic Coder wants to create a new file:",
+		"wantsToSearchReplace": "AllyTopic Coder wants to search and replace in this file:",
+		"didSearchReplace": "AllyTopic Coder performed search and replace on this file:",
+		"wantsToInsert": "AllyTopic Coder wants to insert content into this file:",
+		"wantsToInsertWithLineNumber": "AllyTopic Coder wants to insert content into this file at line {{lineNumber}}:",
+		"wantsToInsertAtEnd": "AllyTopic Coder wants to append content to the end of this file:"
 	},
 	"directoryOperations": {
-		"wantsToViewTopLevel": "Roo wants to view the top level files in this directory:",
-		"didViewTopLevel": "Roo viewed the top level files in this directory:",
-		"wantsToViewTopLevelOutsideWorkspace": "Roo wants to view the top level files in this directory (outside workspace):",
-		"didViewTopLevelOutsideWorkspace": "Roo viewed the top level files in this directory (outside workspace):",
-		"wantsToViewRecursive": "Roo wants to recursively view all files in this directory:",
-		"didViewRecursive": "Roo recursively viewed all files in this directory:",
-		"wantsToViewRecursiveOutsideWorkspace": "Roo wants to recursively view all files in this directory (outside workspace):",
-		"didViewRecursiveOutsideWorkspace": "Roo recursively viewed all files in this directory (outside workspace):",
-		"wantsToViewDefinitions": "Roo wants to view source code definition names used in this directory:",
-		"didViewDefinitions": "Roo viewed source code definition names used in this directory:",
-		"wantsToViewDefinitionsOutsideWorkspace": "Roo wants to view source code definition names used in this directory (outside workspace):",
-		"didViewDefinitionsOutsideWorkspace": "Roo viewed source code definition names used in this directory (outside workspace):",
-		"wantsToSearch": "Roo wants to search this directory for <code>{{regex}}</code>:",
-		"didSearch": "Roo searched this directory for <code>{{regex}}</code>:",
-		"wantsToSearchOutsideWorkspace": "Roo wants to search this directory (outside workspace) for <code>{{regex}}</code>:",
-		"didSearchOutsideWorkspace": "Roo searched this directory (outside workspace) for <code>{{regex}}</code>:"
+		"wantsToViewTopLevel": "AllyTopic Coder wants to view the top level files in this directory:",
+		"didViewTopLevel": "AllyTopic Coder viewed the top level files in this directory:",
+		"wantsToViewTopLevelOutsideWorkspace": "AllyTopic Coder wants to view the top level files in this directory (outside workspace):",
+		"didViewTopLevelOutsideWorkspace": "AllyTopic Coder viewed the top level files in this directory (outside workspace):",
+		"wantsToViewRecursive": "AllyTopic Coder wants to recursively view all files in this directory:",
+		"didViewRecursive": "AllyTopic Coder recursively viewed all files in this directory:",
+		"wantsToViewRecursiveOutsideWorkspace": "AllyTopic Coder wants to recursively view all files in this directory (outside workspace):",
+		"didViewRecursiveOutsideWorkspace": "AllyTopic Coder recursively viewed all files in this directory (outside workspace):",
+		"wantsToViewDefinitions": "AllyTopic Coder wants to view source code definition names used in this directory:",
+		"didViewDefinitions": "AllyTopic Coder viewed source code definition names used in this directory:",
+		"wantsToViewDefinitionsOutsideWorkspace": "AllyTopic Coder wants to view source code definition names used in this directory (outside workspace):",
+		"didViewDefinitionsOutsideWorkspace": "AllyTopic Coder viewed source code definition names used in this directory (outside workspace):",
+		"wantsToSearch": "AllyTopic Coder wants to search this directory for <code>{{regex}}</code>:",
+		"didSearch": "AllyTopic Coder searched this directory for <code>{{regex}}</code>:",
+		"wantsToSearchOutsideWorkspace": "AllyTopic Coder wants to search this directory (outside workspace) for <code>{{regex}}</code>:",
+		"didSearchOutsideWorkspace": "AllyTopic Coder searched this directory (outside workspace) for <code>{{regex}}</code>:"
 	},
 	"codebaseSearch": {
-		"wantsToSearch": "Roo wants to search the codebase for <code>{{query}}</code>:",
-		"wantsToSearchWithPath": "Roo wants to search the codebase for <code>{{query}}</code> in <code>{{path}}</code>:",
+		"wantsToSearch": "AllyTopic Coder wants to search the codebase for <code>{{query}}</code>:",
+		"wantsToSearchWithPath": "AllyTopic Coder wants to search the codebase for <code>{{query}}</code> in <code>{{path}}</code>:",
 		"didSearch_one": "Found 1 result",
 		"didSearch_other": "Found {{count}} results",
 		"resultTooltip": "Similarity score: {{score}} (click to open file)"
@@ -214,18 +214,18 @@
 	"response": "Response",
 	"arguments": "Arguments",
 	"mcp": {
-		"wantsToUseTool": "Roo wants to use a tool on the {{serverName}} MCP server:",
-		"wantsToAccessResource": "Roo wants to access a resource on the {{serverName}} MCP server:"
+		"wantsToUseTool": "AllyTopic Coder wants to use a tool on the {{serverName}} MCP server:",
+		"wantsToAccessResource": "AllyTopic Coder wants to access a resource on the {{serverName}} MCP server:"
 	},
 	"modes": {
-		"wantsToSwitch": "Roo wants to switch to {{mode}} mode",
-		"wantsToSwitchWithReason": "Roo wants to switch to {{mode}} mode because: {{reason}}",
-		"didSwitch": "Roo switched to {{mode}} mode",
-		"didSwitchWithReason": "Roo switched to {{mode}} mode because: {{reason}}"
+		"wantsToSwitch": "AllyTopic Coder wants to switch to {{mode}} mode",
+		"wantsToSwitchWithReason": "AllyTopic Coder wants to switch to {{mode}} mode because: {{reason}}",
+		"didSwitch": "AllyTopic Coder switched to {{mode}} mode",
+		"didSwitchWithReason": "AllyTopic Coder switched to {{mode}} mode because: {{reason}}"
 	},
 	"subtasks": {
-		"wantsToCreate": "Roo wants to create a new subtask in {{mode}} mode:",
-		"wantsToFinish": "Roo wants to finish this subtask",
+		"wantsToCreate": "AllyTopic Coder wants to create a new subtask in {{mode}} mode:",
+		"wantsToFinish": "AllyTopic Coder wants to finish this subtask",
 		"newTaskContent": "Subtask Instructions",
 		"completionContent": "Subtask Completed",
 		"resultContent": "Subtask Results",
@@ -233,14 +233,14 @@
 		"completionInstructions": "Subtask completed! You can review the results and suggest any corrections or next steps. If everything looks good, confirm to return the result to the parent task."
 	},
 	"questions": {
-		"hasQuestion": "Roo has a question:"
+		"hasQuestion": "AllyTopic Coder has a question:"
 	},
 	"taskCompleted": "Task Completed",
 	"error": "Error",
 	"diffError": {
 		"title": "Edit Unsuccessful"
 	},
-	"troubleMessage": "Roo is having trouble...",
+	"troubleMessage": "AllyTopic Coder is having trouble...",
 	"powershell": {
 		"issues": "It seems like you're having Windows PowerShell issues, please see this"
 	},
@@ -271,7 +271,7 @@
 		"countdownDisplay": "{{count}}s"
 	},
 	"browser": {
-		"rooWantsToUse": "Roo wants to use the browser:",
+		"rooWantsToUse": "AllyTopic Coder wants to use the browser:",
 		"consoleLogs": "Console Logs",
 		"noNewLogs": "(No new logs)",
 		"screenshot": "Browser screenshot",
@@ -311,7 +311,7 @@
 	"ask": {
 		"autoApprovedRequestLimitReached": {
 			"title": "Auto-Approved Request Limit Reached",
-			"description": "Roo has reached the auto-approved limit of {{count}} API request(s). Would you like to reset the count and proceed with the task?",
+			"description": "AllyTopic Coder has reached the auto-approved limit of {{count}} API request(s). Would you like to reset the count and proceed with the task?",
 			"button": "Reset and Continue"
 		}
 	},
