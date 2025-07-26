@@ -206,26 +206,6 @@ export const ModelPicker = ({
 					</PopoverContent>
 				</Popover>
 			</div>
-			{errorMessage && <ApiErrorMessage errorMessage={errorMessage} />}
-			{selectedModelId && selectedModelInfo && (
-				<ModelInfoView
-					apiProvider={apiConfiguration.apiProvider}
-					selectedModelId={selectedModelId}
-					modelInfo={selectedModelInfo}
-					isDescriptionExpanded={isDescriptionExpanded}
-					setIsDescriptionExpanded={setIsDescriptionExpanded}
-				/>
-			)}
-			<div className="text-sm text-vscode-descriptionForeground">
-				<Trans
-					i18nKey="settings:modelPicker.automaticFetch"
-					components={{
-						serviceLink: <VSCodeLink href={serviceUrl} className="text-sm" />,
-						defaultModelLink: <VSCodeLink onClick={() => onSelect(defaultModelId)} className="text-sm" />,
-					}}
-					values={{ serviceName, defaultModelId }}
-				/>
-			</div>
 		</>
 	)
 }

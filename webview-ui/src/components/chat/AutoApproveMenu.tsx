@@ -25,8 +25,6 @@ const AutoApproveMenu = ({ style }: AutoApproveMenuProps) => {
 		setAlwaysAllowReadOnly,
 		setAlwaysAllowWrite,
 		setAlwaysAllowExecute,
-		setAlwaysAllowBrowser,
-		setAlwaysAllowMcp,
 		setAlwaysAllowModeSwitch,
 		setAlwaysAllowSubtasks,
 		setAlwaysApproveResubmit,
@@ -65,12 +63,7 @@ const AutoApproveMenu = ({ style }: AutoApproveMenuProps) => {
 				case "alwaysAllowExecute":
 					setAlwaysAllowExecute(value)
 					break
-				case "alwaysAllowBrowser":
-					setAlwaysAllowBrowser(value)
-					break
-				case "alwaysAllowMcp":
-					setAlwaysAllowMcp(value)
-					break
+				// Removed alwaysAllowBrowser and alwaysAllowMcp
 				case "alwaysAllowModeSwitch":
 					setAlwaysAllowModeSwitch(value)
 					break
@@ -111,14 +104,12 @@ const AutoApproveMenu = ({ style }: AutoApproveMenuProps) => {
 		[
 			toggles,
 			hasEnabledOptions,
-			setAlwaysAllowReadOnly,
-			setAlwaysAllowWrite,
-			setAlwaysAllowExecute,
-			setAlwaysAllowBrowser,
-			setAlwaysAllowMcp,
-			setAlwaysAllowModeSwitch,
-			setAlwaysAllowSubtasks,
-			setAlwaysApproveResubmit,
+		   setAlwaysAllowReadOnly,
+		   setAlwaysAllowWrite,
+		   setAlwaysAllowExecute,
+		   setAlwaysAllowModeSwitch,
+		   setAlwaysAllowSubtasks,
+		   setAlwaysApproveResubmit,
 			setAlwaysAllowFollowupQuestions,
 			setAlwaysAllowUpdateTodoList,
 			setAutoApprovalEnabled,

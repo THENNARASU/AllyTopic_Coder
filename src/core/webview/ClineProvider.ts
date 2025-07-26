@@ -699,7 +699,7 @@ export class ClineProvider
 						window.AUDIO_BASE_URI = "${audioUri}"
 						window.MATERIAL_ICONS_BASE_URI = "${materialIconsUri}"
 					</script>
-					<title>Roo Code</title>
+					<title>AllyTopic Coder</title>
 				</head>
 				<body>
 					<div id="root"></div>
@@ -758,29 +758,29 @@ export class ClineProvider
 
 		// Tip: Install the es6-string-html VS Code extension to enable code highlighting below
 		return /*html*/ `
-        <!DOCTYPE html>
-        <html lang="en">
-          <head>
-            <meta charset="utf-8">
-            <meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no">
-            <meta name="theme-color" content="#000000">
-            <meta http-equiv="Content-Security-Policy" content="default-src 'none'; font-src ${webview.cspSource} data:; style-src ${webview.cspSource} 'unsafe-inline'; img-src ${webview.cspSource} https://storage.googleapis.com https://img.clerk.com data:; media-src ${webview.cspSource}; script-src ${webview.cspSource} 'wasm-unsafe-eval' 'nonce-${nonce}' https://us-assets.i.posthog.com 'strict-dynamic'; connect-src https://openrouter.ai https://api.requesty.ai https://us.i.posthog.com https://us-assets.i.posthog.com;">
-            <link rel="stylesheet" type="text/css" href="${stylesUri}">
+		<!DOCTYPE html>
+		<html lang="en">
+		  <head>
+			<meta charset="utf-8">
+			<meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no">
+			<meta name="theme-color" content="#000000">
+			<meta http-equiv="Content-Security-Policy" content="default-src 'none'; font-src ${webview.cspSource} data:; style-src ${webview.cspSource} 'unsafe-inline'; img-src ${webview.cspSource} https://storage.googleapis.com https://img.clerk.com data:; media-src ${webview.cspSource}; script-src ${webview.cspSource} 'wasm-unsafe-eval' 'nonce-${nonce}' https://us-assets.i.posthog.com 'strict-dynamic'; connect-src https://openrouter.ai https://api.requesty.ai https://us.i.posthog.com https://us-assets.i.posthog.com;">
+			<link rel="stylesheet" type="text/css" href="${stylesUri}">
 			<link href="${codiconsUri}" rel="stylesheet" />
 			<script nonce="${nonce}">
 				window.IMAGES_BASE_URI = "${imagesUri}"
 				window.AUDIO_BASE_URI = "${audioUri}"
 				window.MATERIAL_ICONS_BASE_URI = "${materialIconsUri}"
 			</script>
-            <title>Roo Code</title>
-          </head>
-          <body>
-            <noscript>You need to enable JavaScript to run this app.</noscript>
-            <div id="root"></div>
-            <script nonce="${nonce}" type="module" src="${scriptUri}"></script>
-          </body>
-        </html>
-      `
+			<title>AllyTopic Coder</title>
+		  </head>
+		  <body>
+			<noscript>You need to enable JavaScript to run this app.</noscript>
+			<div id="root"></div>
+			<script nonce="${nonce}" type="module" src="${scriptUri}"></script>
+		  </body>
+		</html>
+	  `
 	}
 
 	/**
@@ -1585,44 +1585,41 @@ export class ClineProvider
 			providerSettings.apiProvider = apiProvider
 		}
 
-		let organizationAllowList = ORGANIZATION_ALLOW_ALL
 
-		try {
-			organizationAllowList = await CloudService.instance.getAllowList()
-		} catch (error) {
-			console.error(
-				`[getState] failed to get organization allow list: ${error instanceof Error ? error.message : String(error)}`,
-			)
-		}
+		let organizationAllowList = ORGANIZATION_ALLOW_ALL;
+		let cloudUserInfo: CloudUserInfo | null = null;
+		let cloudIsAuthenticated: boolean = false;
+		let sharingEnabled: boolean = false;
 
-		let cloudUserInfo: CloudUserInfo | null = null
-
-		try {
-			cloudUserInfo = CloudService.instance.getUserInfo()
-		} catch (error) {
-			console.error(
-				`[getState] failed to get cloud user info: ${error instanceof Error ? error.message : String(error)}`,
-			)
-		}
-
-		let cloudIsAuthenticated: boolean = false
-
-		try {
-			cloudIsAuthenticated = CloudService.instance.isAuthenticated()
-		} catch (error) {
-			console.error(
-				`[getState] failed to get cloud authentication state: ${error instanceof Error ? error.message : String(error)}`,
-			)
-		}
-
-		let sharingEnabled: boolean = false
-
-		try {
-			sharingEnabled = await CloudService.instance.canShareTask()
-		} catch (error) {
-			console.error(
-				`[getState] failed to get sharing enabled state: ${error instanceof Error ? error.message : String(error)}`,
-			)
+		if (typeof CloudService !== "undefined" && CloudService.hasInstance && CloudService.hasInstance()) {
+			try {
+				organizationAllowList = await CloudService.instance.getAllowList();
+			} catch (error) {
+				console.error(
+					`[getState] failed to get organization allow list: ${error instanceof Error ? error.message : String(error)}`,
+				);
+			}
+			try {
+				cloudUserInfo = CloudService.instance.getUserInfo();
+			} catch (error) {
+				console.error(
+					`[getState] failed to get cloud user info: ${error instanceof Error ? error.message : String(error)}`,
+				);
+			}
+			try {
+				cloudIsAuthenticated = CloudService.instance.isAuthenticated();
+			} catch (error) {
+				console.error(
+					`[getState] failed to get cloud authentication state: ${error instanceof Error ? error.message : String(error)}`,
+				);
+			}
+			try {
+				sharingEnabled = await CloudService.instance.canShareTask();
+			} catch (error) {
+				console.error(
+					`[getState] failed to get sharing enabled state: ${error instanceof Error ? error.message : String(error)}`,
+				);
+			}
 		}
 
 		// Return the same structure as before
@@ -1849,7 +1846,7 @@ export class ClineProvider
 
 		const packageJSON = this.context.extension?.packageJSON
 
-		// Get Roo Code Cloud authentication state
+		// Get AllyTopic Coder Cloud authentication state
 		let cloudIsAuthenticated: boolean | undefined
 
 		try {

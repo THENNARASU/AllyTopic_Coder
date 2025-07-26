@@ -51,7 +51,7 @@ export const About = ({ telemetrySetting, setTelemetrySetting, className, ...pro
 						<Trans
 							i18nKey="settings:footer.telemetry.description"
 							components={{
-								privacyLink: <VSCodeLink href="https://roocode.com/privacy" />,
+								privacyLink: <VSCodeLink href="https://allytopic.com/privacy" />,
 							}}
 						/>
 					</p>
@@ -63,7 +63,7 @@ export const About = ({ telemetrySetting, setTelemetrySetting, className, ...pro
 						components={{
 							githubLink: <VSCodeLink href="https://github.com/RooCodeInc/Roo-Code" />,
 							redditLink: <VSCodeLink href="https://reddit.com/r/RooCode" />,
-							discordLink: <VSCodeLink href="https://discord.gg/roocode" />,
+							discordLink: <VSCodeLink href="https://discord.gg/allytopic" />,
 						}}
 					/>
 				</div>

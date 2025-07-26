@@ -102,40 +102,9 @@ export const ModeSelector = ({
 						<div className="flex flex-row items-center gap-1 p-0 mt-0 mb-1 w-full">
 							<h4 className="m-0 pb-2 flex-1">{t("chat:modeSelector.title")}</h4>
 							<div className="flex flex-row gap-1 ml-auto mb-1">
-								<IconButton
-									iconClass="codicon-extensions"
-									title={t("chat:modeSelector.marketplace")}
-									onClick={() => {
-										window.postMessage(
-											{
-												type: "action",
-												action: "marketplaceButtonClicked",
-												values: { marketplaceTab: "mode" },
-											},
-											"*",
-										)
-
-										setOpen(false)
-									}}
-								/>
-								<IconButton
-									iconClass="codicon-settings-gear"
-									title={t("chat:modeSelector.settings")}
-									onClick={() => {
-										vscode.postMessage({
-											type: "switchTab",
-											tab: "modes",
-										})
-										setOpen(false)
-									}}
-								/>
 							</div>
 						</div>
-						<p className="my-0 pr-4 text-sm w-full">
-							{t("chat:modeSelector.description")}
-							<br />
-							{modeShortcutText}
-						</p>
+						
 					</div>
 
 					{/* Mode List */}

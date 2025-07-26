@@ -403,16 +403,16 @@ const SettingsView = forwardRef<SettingsViewRef, SettingsViewProps>(({ onDone, t
 	const sections: { id: SectionName; icon: LucideIcon }[] = useMemo(
 		() => [
 			{ id: "providers", icon: Webhook },
-			{ id: "autoApprove", icon: CheckCheck },
-			{ id: "browser", icon: SquareMousePointer },
-			{ id: "checkpoints", icon: GitBranch },
-			{ id: "notifications", icon: Bell },
-			{ id: "contextManagement", icon: Database },
-			{ id: "terminal", icon: SquareTerminal },
-			{ id: "prompts", icon: MessageSquare },
-			{ id: "experimental", icon: FlaskConical },
-			{ id: "language", icon: Globe },
-			{ id: "about", icon: Info },
+			//{ id: "autoApprove", icon: CheckCheck },
+			//{ id: "browser", icon: SquareMousePointer },
+			//{ id: "checkpoints", icon: GitBranch },
+			//{ id: "notifications", icon: Bell },
+			//{ id: "contextManagement", icon: Database },
+			//{ id: "terminal", icon: SquareTerminal },
+			//{ id: "prompts", icon: MessageSquare },
+			//{ id: "experimental", icon: FlaskConical },
+			//{ id: "language", icon: Globe },
+			//{ id: "about", icon: Info },
 		],
 		[], // No dependencies needed now
 	)

@@ -983,29 +983,8 @@ const ChatTextArea = forwardRef<HTMLTextAreaElement, ChatTextAreaProps>(
 							</button>
 						</StandardTooltip>
 					)}
-					<IndexingStatusBadge />
-					<StandardTooltip content={t("chat:addImages")}>
-						<button
-							aria-label={t("chat:addImages")}
-							disabled={shouldDisableImages}
-							onClick={!shouldDisableImages ? onSelectImages : undefined}
-							className={cn(
-								"relative inline-flex items-center justify-center",
-								"bg-transparent border-none p-1.5",
-								"rounded-md min-w-[28px] min-h-[28px]",
-								"text-vscode-foreground opacity-85",
-								"transition-all duration-150",
-								"hover:opacity-100 hover:bg-[rgba(255,255,255,0.03)] hover:border-[rgba(255,255,255,0.15)]",
-								"focus:outline-none focus-visible:ring-1 focus-visible:ring-vscode-focusBorder",
-								"active:bg-[rgba(255,255,255,0.1)]",
-								!shouldDisableImages && "cursor-pointer",
-								shouldDisableImages &&
-									"opacity-40 cursor-not-allowed grayscale-[30%] hover:bg-transparent hover:border-[rgba(255,255,255,0.08)] active:bg-transparent",
-								"mr-1",
-							)}>
-							<Image className="w-4 h-4" />
-						</button>
-					</StandardTooltip>
+					
+					
 				</div>
 			</div>
 		)
@@ -1109,29 +1088,7 @@ const ChatTextArea = forwardRef<HTMLTextAreaElement, ChatTextAreaProps>(
 					onScroll={() => updateHighlights()}
 				/>
 
-				<div className="absolute top-1 right-1 z-30">
-					<StandardTooltip content={t("chat:enhancePrompt")}>
-						<button
-							aria-label={t("chat:enhancePrompt")}
-							disabled={sendingDisabled}
-							onClick={!sendingDisabled ? handleEnhancePrompt : undefined}
-							className={cn(
-								"relative inline-flex items-center justify-center",
-								"bg-transparent border-none p-1.5",
-								"rounded-md min-w-[28px] min-h-[28px]",
-								"opacity-60 hover:opacity-100 text-vscode-descriptionForeground hover:text-vscode-foreground",
-								"transition-all duration-150",
-								"hover:bg-[rgba(255,255,255,0.03)] hover:border-[rgba(255,255,255,0.15)]",
-								"focus:outline-none focus-visible:ring-1 focus-visible:ring-vscode-focusBorder",
-								"active:bg-[rgba(255,255,255,0.1)]",
-								!sendingDisabled && "cursor-pointer",
-								sendingDisabled &&
-									"opacity-40 cursor-not-allowed grayscale-[30%] hover:bg-transparent hover:border-[rgba(255,255,255,0.08)] active:bg-transparent",
-							)}>
-							<WandSparkles className={cn("w-4 h-4", isEnhancingPrompt && "animate-spin")} />
-						</button>
-					</StandardTooltip>
-				</div>
+				
 
 				{!isEditMode && (
 					<div className="absolute bottom-1 right-1 z-30">

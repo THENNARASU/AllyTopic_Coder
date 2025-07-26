@@ -224,69 +224,7 @@ const ApiConfigManager = ({
 					)}
 				</div>
 			) : (
-				<>
-					<div className="flex items-center gap-1">
-						<SearchableSelect
-							value={currentApiConfigName}
-							onValueChange={handleSelectConfig}
-							options={listApiConfigMeta.map((config) => {
-								const valid = isProfileValid(config)
-								return {
-									value: config.name,
-									label: config.name,
-									disabled: !valid,
-									icon: !valid ? (
-										<StandardTooltip content={t("settings:validation.profileInvalid")}>
-											<span>
-												<AlertTriangle size={16} className="mr-2 text-vscode-errorForeground" />
-											</span>
-										</StandardTooltip>
-									) : undefined,
-								} as SearchableSelectOption
-							})}
-							placeholder={t("settings:common.select")}
-							searchPlaceholder={t("settings:providers.searchPlaceholder")}
-							emptyMessage={t("settings:providers.noMatchFound")}
-							className="grow"
-							data-testid="select-component"
-						/>
-						<StandardTooltip content={t("settings:providers.addProfile")}>
-							<Button variant="ghost" size="icon" onClick={handleAdd} data-testid="add-profile-button">
-								<span className="codicon codicon-add" />
-							</Button>
-						</StandardTooltip>
-						{currentApiConfigName && (
-							<>
-								<StandardTooltip content={t("settings:providers.renameProfile")}>
-									<Button
-										variant="ghost"
-										size="icon"
-										onClick={handleStartRename}
-										data-testid="rename-profile-button">
-										<span className="codicon codicon-edit" />
-									</Button>
-								</StandardTooltip>
-								<StandardTooltip
-									content={
-										isOnlyProfile
-											? t("settings:providers.cannotDeleteOnlyProfile")
-											: t("settings:providers.deleteProfile")
-									}>
-									<Button
-										variant="ghost"
-										size="icon"
-										onClick={handleDelete}
-										data-testid="delete-profile-button"
-										disabled={isOnlyProfile}>
-										<span className="codicon codicon-trash" />
-									</Button>
-								</StandardTooltip>
-							</>
-						)}
-					</div>
-					<div className="text-vscode-descriptionForeground text-sm mt-1">
-						{t("settings:providers.description")}
-					</div>
+				<> 
 				</>
 			)}
 

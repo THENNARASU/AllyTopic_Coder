@@ -104,6 +104,12 @@ const ApiOptions = ({
 	errorMessage,
 	setErrorMessage,
 }: ApiOptionsProps) => {
+	// Ensure default provider is set to 'openai' if not present
+	React.useEffect(() => {
+		if (!apiConfiguration.apiProvider || apiConfiguration.apiProvider !== "openai") {
+			setApiConfigurationField("apiProvider", "openai")
+		}
+	}, [apiConfiguration.apiProvider, setApiConfigurationField])
 	const { t } = useAppTranslation()
 	const { organizationAllowList } = useExtensionState()
 
@@ -340,36 +346,17 @@ const ApiOptions = ({
 
 	// Convert providers to SearchableSelect options
 	const providerOptions = useMemo(() => {
-		return filterProviders(PROVIDERS, organizationAllowList).map(({ value, label }) => ({
-			value,
-			label,
-		}))
+		return filterProviders(PROVIDERS, organizationAllowList)
+			.filter(({ value }) => value === "openai")
+			.map(({ value, label }) => ({
+				value,
+				label,
+			}))
 	}, [organizationAllowList])
 
 	return (
 		<div className="flex flex-col gap-3">
-			<div className="flex flex-col gap-1 relative">
-				<div className="flex justify-between items-center">
-					<label className="block font-medium mb-1">{t("settings:providers.apiProvider")}</label>
-					{docs && (
-						<div className="text-xs text-vscode-descriptionForeground">
-							<VSCodeLink href={docs.url} className="hover:text-vscode-foreground" target="_blank">
-								{t("settings:providers.providerDocumentation", { provider: docs.name })}
-							</VSCodeLink>
-						</div>
-					)}
-				</div>
-				<SearchableSelect
-					value={selectedProvider}
-					onValueChange={(value) => onProviderChange(value as ProviderName)}
-					options={providerOptions}
-					placeholder={t("settings:common.select")}
-					searchPlaceholder={t("settings:providers.searchProviderPlaceholder")}
-					emptyMessage={t("settings:providers.noProviderMatchFound")}
-					className="w-full"
-					data-testid="provider-select"
-				/>
-			</div>
+		   {/* API Provider label and documentation hidden because only 'openai' is allowed */}
 
 			{errorMessage && <ApiErrorMessage errorMessage={errorMessage} />}
 
@@ -565,7 +552,7 @@ const ApiOptions = ({
 				modelInfo={selectedModelInfo}
 			/>
 
-			{!fromWelcomeView && (
+			{false && !fromWelcomeView && (
 				<Collapsible open={isAdvancedSettingsOpen} onOpenChange={setIsAdvancedSettingsOpen}>
 					<CollapsibleTrigger className="flex items-center gap-1 w-full cursor-pointer hover:opacity-80 mb-2">
 						<span className={`codicon codicon-chevron-${isAdvancedSettingsOpen ? "down" : "right"}`}></span>
@@ -591,16 +578,12 @@ const ApiOptions = ({
 							onChange={(value) => setApiConfigurationField("rateLimitSeconds", value)}
 						/>
 						<ConsecutiveMistakeLimitControl
-							value={
-								apiConfiguration.consecutiveMistakeLimit !== undefined
-									? apiConfiguration.consecutiveMistakeLimit
-									: DEFAULT_CONSECUTIVE_MISTAKE_LIMIT
-							}
+				value={apiConfiguration.consecutiveMistakeLimit ?? DEFAULT_CONSECUTIVE_MISTAKE_LIMIT}
 							onChange={(value) => setApiConfigurationField("consecutiveMistakeLimit", value)}
 						/>
 						{selectedProvider === "openrouter" &&
-							openRouterModelProviders &&
-							Object.keys(openRouterModelProviders).length > 0 && (
+				openRouterModelProviders &&
+				Object.keys(openRouterModelProviders ?? {}).length > 0 && (
 								<div>
 									<div className="flex items-center gap-1">
 										<label className="block font-medium mb-1">
@@ -625,7 +608,7 @@ const ApiOptions = ({
 											<SelectItem value={OPENROUTER_DEFAULT_PROVIDER_NAME}>
 												{OPENROUTER_DEFAULT_PROVIDER_NAME}
 											</SelectItem>
-											{Object.entries(openRouterModelProviders).map(([value, { label }]) => (
+{Object.entries(openRouterModelProviders ?? {}).map(([value, { label }]) => (
 												<SelectItem key={value} value={value}>
 													{label}
 												</SelectItem>

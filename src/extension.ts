@@ -14,6 +14,7 @@ try {
 
 import { CloudService } from "@roo-code/cloud"
 import { TelemetryService, PostHogTelemetryClient } from "@roo-code/telemetry"
+import { TelemetryEventName } from "@roo-code/types"
 
 import "./utils/path" // Necessary to have access to String.prototype.toPosix.
 import { createOutputChannelLogger, createDualLogger } from "./utils/outputChannelLogger"
@@ -54,10 +55,11 @@ let extensionContext: vscode.ExtensionContext
 // This method is called when your extension is activated.
 // Your extension is activated the very first time the command is executed.
 export async function activate(context: vscode.ExtensionContext) {
-	extensionContext = context
-	outputChannel = vscode.window.createOutputChannel(Package.outputChannel)
-	context.subscriptions.push(outputChannel)
-	outputChannel.appendLine(`${Package.name} extension activated - ${JSON.stringify(Package)}`)
+extensionContext = context
+outputChannel = vscode.window.createOutputChannel(Package.outputChannel)
+context.subscriptions.push(outputChannel)
+outputChannel.appendLine(`${Package.name} extension activated - ${JSON.stringify(Package)}`)
+//outputChannel.appendLine(`POSTHOG_API_KEY: ${process.env.POSTHOG_API_KEY}`)
 
 	// Migrate old settings to new
 	await migrateSettings(context, outputChannel)
@@ -65,20 +67,32 @@ export async function activate(context: vscode.ExtensionContext) {
 	// Initialize telemetry service.
 	const telemetryService = TelemetryService.createInstance()
 
-	try {
-		telemetryService.register(new PostHogTelemetryClient())
-	} catch (error) {
-		console.warn("Failed to register PostHogTelemetryClient:", error)
-	}
+
+let posthogClient: PostHogTelemetryClient | undefined;
+try {
+	posthogClient = new PostHogTelemetryClient(true);
+	telemetryService.register(posthogClient);
+	// Force telemetry enabled for testing
+	//posthogClient.updateTelemetryState(true);
+	// Send a test event to PostHog using a valid event name
+	//await posthogClient.capture({
+	//	event: TelemetryEventName.TOOL_USED,
+	//	properties: { source: "extension_activation", timestamp: Date.now(), test: true }
+	//});
+	//outputChannel.appendLine("Test TOOL_USED event sent to PostHog.");
+} catch (error) {
+	outputChannel.appendLine("Failed to register PostHogTelemetryClient or send test event: " + (error?.message || error));
+	console.warn("Failed to register PostHogTelemetryClient or send test event:", error);
+}
 
 	// Create logger for cloud services
 	const cloudLogger = createDualLogger(createOutputChannelLogger(outputChannel))
 
-	// Initialize Roo Code Cloud service.
-	await CloudService.createInstance(context, {
-		stateChanged: () => ClineProvider.getVisibleInstance()?.postStateToWebview(),
-		log: cloudLogger,
-	})
+	// Initialize AllyTopic Coder Cloud service.
+	//await CloudService.createInstance(context, {
+	//	stateChanged: () => ClineProvider.getVisibleInstance()?.postStateToWebview(),
+	//	log: cloudLogger,
+	//})
 
 	// Initialize MDM service
 	const mdmService = await MdmService.createInstance(cloudLogger)

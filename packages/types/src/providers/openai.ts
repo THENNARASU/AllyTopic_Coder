@@ -184,7 +184,7 @@ export const openAiNativeModels = {
 
 export const openAiModelInfoSaneDefaults: ModelInfo = {
 	maxTokens: -1,
-	contextWindow: 128_000,
+	contextWindow: 90_000,
 	supportsImages: true,
 	supportsPromptCache: false,
 	inputPrice: 0,

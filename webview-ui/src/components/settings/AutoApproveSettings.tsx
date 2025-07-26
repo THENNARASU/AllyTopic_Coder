@@ -142,19 +142,18 @@ export const AutoApproveSettings = ({
 			</SectionHeader>
 
 			<Section>
-				<AutoApproveToggle
-					alwaysAllowReadOnly={alwaysAllowReadOnly}
-					alwaysAllowWrite={alwaysAllowWrite}
-					alwaysAllowBrowser={alwaysAllowBrowser}
-					alwaysApproveResubmit={alwaysApproveResubmit}
-					alwaysAllowMcp={alwaysAllowMcp}
-					alwaysAllowModeSwitch={alwaysAllowModeSwitch}
-					alwaysAllowSubtasks={alwaysAllowSubtasks}
-					alwaysAllowExecute={alwaysAllowExecute}
-					alwaysAllowFollowupQuestions={alwaysAllowFollowupQuestions}
-					alwaysAllowUpdateTodoList={alwaysAllowUpdateTodoList}
-					onToggle={(key, value) => setCachedStateField(key, value)}
-				/>
+<AutoApproveToggle
+	alwaysAllowReadOnly={alwaysAllowReadOnly}
+	alwaysAllowWrite={alwaysAllowWrite}
+	alwaysApproveResubmit={alwaysApproveResubmit}
+	alwaysAllowMcp={alwaysAllowMcp}
+	alwaysAllowModeSwitch={alwaysAllowModeSwitch}
+	alwaysAllowSubtasks={alwaysAllowSubtasks}
+	alwaysAllowExecute={alwaysAllowExecute}
+	alwaysAllowFollowupQuestions={alwaysAllowFollowupQuestions}
+	alwaysAllowUpdateTodoList={alwaysAllowUpdateTodoList}
+	onToggle={(key, value) => setCachedStateField(key, value)}
+/>
 
 				{/* ADDITIONAL SETTINGS */}
 

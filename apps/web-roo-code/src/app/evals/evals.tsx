@@ -60,7 +60,7 @@ export function Evals({
 		<div className="mx-auto flex max-w-screen-lg flex-col gap-8 p-8">
 			<div className="flex flex-col gap-4">
 				<div>
-					Roo Code tests each frontier model against{" "}
+					AllyTopic Coder tests each frontier model against{" "}
 					<a href="https://github.com/RooCodeInc/Roo-Code-Evals" className="underline">
 						a suite of hundreds of exercises
 					</a>{" "}
@@ -69,7 +69,7 @@ export function Evals({
 				</div>
 				<div>
 					Want to see the results for a model we haven&apos;t tested yet? Ping us in{" "}
-					<a href="https://discord.gg/roocode" className="underline">
+					<a href="https://discord.gg/allytopic" className="underline">
 						Discord
 					</a>
 					.
