@@ -108,6 +108,9 @@ const SettingsView = forwardRef<SettingsViewRef, SettingsViewProps>(({ onDone, t
 	const [isDiscardDialogShow, setDiscardDialogShow] = useState(false)
 	const [isChangeDetected, setChangeDetected] = useState(false)
 	const [errorMessage, setErrorMessage] = useState<string | undefined>(undefined)
+	const [isSystemPromptDialogOpen, setIsSystemPromptDialogOpen] = useState(false)
+	const [systemPromptTitle, setSystemPromptTitle] = useState("")
+	const [systemPromptContent, setSystemPromptContent] = useState("")
 	const [activeTab, setActiveTab] = useState<SectionName>(
 		targetSection && sectionNames.includes(targetSection as SectionName)
 			? (targetSection as SectionName)
@@ -447,6 +450,10 @@ const SettingsView = forwardRef<SettingsViewRef, SettingsViewProps>(({ onDone, t
 			const message = event.data
 			if (message.type === "action" && message.action === "didBecomeVisible") {
 				scrollToActiveTab()
+			} else if (message.type === "systemPrompt" && message.text) {
+				setSystemPromptContent(message.text)
+				setSystemPromptTitle(`System Prompt (${message.mode} mode)`)
+				setIsSystemPromptDialogOpen(true)
 			}
 		}
 
@@ -456,6 +463,32 @@ const SettingsView = forwardRef<SettingsViewRef, SettingsViewProps>(({ onDone, t
 			window.removeEventListener("message", handleMessage)
 		}
 	}, [scrollToActiveTab])
+
+	useEffect(() => {
+		const handleKeyDown = (event: KeyboardEvent) => {
+			if (activeTab !== "providers") {
+				return
+			}
+
+			if (event.key !== "S" || !event.shiftKey) {
+				return
+			}
+
+			const target = event.target
+			if (target instanceof Element && target.closest("input, textarea, [contenteditable='true']")) {
+				return
+			}
+
+			event.preventDefault()
+			vscode.postMessage({ type: "getSystemPrompt", mode: cachedState.mode })
+		}
+
+		window.addEventListener("keydown", handleKeyDown)
+
+		return () => {
+			window.removeEventListener("keydown", handleKeyDown)
+		}
+	}, [activeTab, cachedState.mode])
 
 	return (
 		<Tab>
@@ -731,6 +764,24 @@ const SettingsView = forwardRef<SettingsViewRef, SettingsViewProps>(({ onDone, t
 						<AlertDialogAction onClick={() => onConfirmDialogResult(true)}>
 							{t("settings:unsavedChangesDialog.discardButton")}
 						</AlertDialogAction>
+					</AlertDialogFooter>
+				</AlertDialogContent>
+			</AlertDialog>
+
+			<AlertDialog open={isSystemPromptDialogOpen} onOpenChange={setIsSystemPromptDialogOpen}>
+				<AlertDialogContent>
+					<AlertDialogHeader>
+						<AlertDialogTitle>{systemPromptTitle || "System Prompt"}</AlertDialogTitle>
+						<AlertDialogDescription asChild>
+							<pre
+								data-testid="system-prompt-preview-content"
+								className="max-h-[60vh] overflow-y-auto p-2 whitespace-pre-wrap break-words font-mono text-vscode-editor-font-size text-vscode-editor-foreground bg-vscode-editor-background border border-vscode-editor-lineHighlightBorder rounded">
+								{systemPromptContent}
+							</pre>
+						</AlertDialogDescription>
+					</AlertDialogHeader>
+					<AlertDialogFooter>
+						<AlertDialogCancel>Close</AlertDialogCancel>
 					</AlertDialogFooter>
 				</AlertDialogContent>
 			</AlertDialog>

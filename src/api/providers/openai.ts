@@ -38,12 +38,14 @@ export class OpenAiHandler extends BaseProvider implements SingleCompletionHandl
 		const baseURL = this.options.openAiBaseUrl ?? "https://api.openai.com/v1"
 		const apiKey = this.options.openAiApiKey ?? "not-provided"
 		const isAzureAiInference = this._isAzureAiInference(this.options.openAiBaseUrl)
+		const isSarvam = this._isSarvam(this.options.openAiBaseUrl)
 		const urlHost = this._getUrlHost(this.options.openAiBaseUrl)
 		const isAzureOpenAi = urlHost === "azure.com" || urlHost.endsWith(".azure.com") || options.openAiUseAzure
 
 		const headers = {
 			...DEFAULT_HEADERS,
 			...(this.options.openAiHeaders || {}),
+			...(isSarvam ? { "API-Subscription-Key": apiKey } : {}),
 		}
 
 		if (isAzureAiInference) {
@@ -83,6 +85,7 @@ export class OpenAiHandler extends BaseProvider implements SingleCompletionHandl
 		const enabledR1Format = this.options.openAiR1FormatEnabled ?? false
 		const enabledLegacyFormat = this.options.openAiLegacyFormat ?? false
 		const isAzureAiInference = this._isAzureAiInference(modelUrl)
+		const isSarvam = this._isSarvam(modelUrl)
 		const deepseekReasoner = modelId.includes("deepseek-reasoner") || enabledR1Format
 		const ark = modelUrl.includes(".volces.com")
 
@@ -101,7 +104,7 @@ export class OpenAiHandler extends BaseProvider implements SingleCompletionHandl
 
 			if (deepseekReasoner) {
 				convertedMessages = convertToR1Format([{ role: "user", content: systemPrompt }, ...messages])
-			} else if (ark || enabledLegacyFormat) {
+			} else if (ark || enabledLegacyFormat || isSarvam) {
 				convertedMessages = [systemMessage, ...convertToSimpleMessages(messages)]
 			} else {
 				if (modelInfo.supportsPromptCache) {
@@ -215,7 +218,7 @@ export class OpenAiHandler extends BaseProvider implements SingleCompletionHandl
 				model: modelId,
 				messages: deepseekReasoner
 					? convertToR1Format([{ role: "user", content: systemPrompt }, ...messages])
-					: enabledLegacyFormat
+					: enabledLegacyFormat || isSarvam
 						? [systemMessage, ...convertToSimpleMessages(messages)]
 						: [systemMessage, ...convertToOpenAiMessages(messages)],
 			}
@@ -390,6 +393,11 @@ export class OpenAiHandler extends BaseProvider implements SingleCompletionHandl
 		return urlHost.endsWith(".services.ai.azure.com")
 	}
 
+	private _isSarvam(baseUrl?: string): boolean {
+		const urlHost = this._getUrlHost(baseUrl)
+		return urlHost === "api.sarvam.ai" || urlHost.endsWith(".sarvam.ai")
+	}
+
 	/**
 	 * Adds max_completion_tokens to the request body if needed based on provider configuration
 	 * Note: max_tokens is deprecated in favor of max_completion_tokens as per OpenAI documentation
@@ -421,6 +429,8 @@ export async function getOpenAiModels(baseUrl?: string, apiKey?: string, openAiH
 		}
 
 		const config: Record<string, any> = {}
+		const urlHost = new URL(baseUrl).host
+		const isSarvam = urlHost === "api.sarvam.ai" || urlHost.endsWith(".sarvam.ai")
 		const headers: Record<string, string> = {
 			...DEFAULT_HEADERS,
 			...(openAiHeaders || {}),
@@ -428,6 +438,9 @@ export async function getOpenAiModels(baseUrl?: string, apiKey?: string, openAiH
 
 		if (apiKey) {
 			headers["Authorization"] = `Bearer ${apiKey}`
+			if (isSarvam) {
+				headers["API-Subscription-Key"] = apiKey
+			}
 		}
 
 		if (Object.keys(headers).length > 0) {

@@ -109,6 +109,54 @@ describe("OpenAiHandler", () => {
 				},
 			})
 		})
+
+		it("should include Sarvam API-Subscription-Key header for sarvam endpoints", () => {
+			const sarvamHandler = new OpenAiHandler({
+				...mockOptions,
+				openAiBaseUrl: "https://api.sarvam.ai/v1",
+				openAiApiKey: "sarvam-test-key",
+			})
+
+			expect(sarvamHandler).toBeInstanceOf(OpenAiHandler)
+			expect(vi.mocked(OpenAI)).toHaveBeenCalledWith(
+				expect.objectContaining({
+					baseURL: "https://api.sarvam.ai/v1",
+					apiKey: "sarvam-test-key",
+					defaultHeaders: expect.objectContaining({
+						"API-Subscription-Key": "sarvam-test-key",
+					}),
+				}),
+			)
+		})
+
+		it("should send simple string messages for sarvam endpoints", async () => {
+			const sarvamHandler = new OpenAiHandler({
+				...mockOptions,
+				openAiBaseUrl: "https://api.sarvam.ai/v1",
+				openAiApiKey: "sarvam-test-key",
+			})
+
+			const stream = sarvamHandler.createMessage("You are a helpful assistant.", [
+				{
+					role: "user",
+					content: [
+						{
+							type: "text",
+							text: "Hello from Sarvam",
+						},
+					],
+				},
+			])
+
+			for await (const _chunk of stream) {
+				// consume stream to trigger request
+			}
+
+			expect(mockCreate).toHaveBeenCalled()
+			const callArgs = mockCreate.mock.calls[0][0]
+			expect(callArgs.messages[0]).toEqual({ role: "system", content: "You are a helpful assistant." })
+			expect(callArgs.messages[1]).toEqual({ role: "user", content: "Hello from Sarvam" })
+		})
 	})
 
 	describe("createMessage", () => {

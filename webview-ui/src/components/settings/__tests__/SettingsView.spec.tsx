@@ -637,3 +637,37 @@ describe("SettingsView - Duplicate Commands", () => {
 		)
 	})
 })
+
+describe("SettingsView - System Prompt Hotkey", () => {
+	beforeEach(() => {
+		vi.clearAllMocks()
+	})
+
+	it("requests system prompt on Shift+S in providers section", () => {
+		renderSettingsView()
+
+		fireEvent.keyDown(window, { key: "S", shiftKey: true })
+
+		expect(vscode.postMessage).toHaveBeenCalledWith(
+			expect.objectContaining({
+				type: "getSystemPrompt",
+				mode: expect.any(String),
+			}),
+		)
+	})
+
+	it("shows prompt popup when system prompt message is received", async () => {
+		renderSettingsView()
+
+		window.postMessage(
+			{
+				type: "systemPrompt",
+				mode: "code",
+				text: "You are the system prompt",
+			},
+			"*",
+		)
+
+		expect(await screen.findByText("You are the system prompt")).toBeInTheDocument()
+	})
+})
