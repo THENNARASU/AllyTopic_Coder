@@ -1574,8 +1574,8 @@ export class ClineProvider
 		const stateValues = this.contextProxy.getValues()
 		const customModes = await this.customModesManager.getCustomModes()
 
-		// Determine apiProvider with the same logic as before.
-		const apiProvider: ProviderName = stateValues.apiProvider ? stateValues.apiProvider : "anthropic"
+		// Default to OpenAI-compatible provider for first-run onboarding.
+		const apiProvider: ProviderName = stateValues.apiProvider ? stateValues.apiProvider : "openai"
 
 		// Build the apiConfiguration object combining state values and secrets.
 		const providerSettings = this.contextProxy.getProviderSettings()
