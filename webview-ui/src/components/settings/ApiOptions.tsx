@@ -443,6 +443,7 @@ const ApiOptions = ({
 					setApiConfigurationField={setApiConfigurationField}
 					organizationAllowList={organizationAllowList}
 					modelValidationError={modelValidationError}
+					fromWelcomeView={fromWelcomeView}
 				/>
 			)}
 

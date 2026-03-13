@@ -28,6 +28,7 @@ type OpenAICompatibleProps = {
 	setApiConfigurationField: (field: keyof ProviderSettings, value: ProviderSettings[keyof ProviderSettings]) => void
 	organizationAllowList: OrganizationAllowList
 	modelValidationError?: string
+	fromWelcomeView?: boolean
 }
 
 export const OpenAICompatible = ({
@@ -35,6 +36,7 @@ export const OpenAICompatible = ({
 	setApiConfigurationField,
 	organizationAllowList,
 	modelValidationError,
+	fromWelcomeView,
 }: OpenAICompatibleProps) => {
 	const { t } = useAppTranslation()
 
@@ -118,6 +120,33 @@ export const OpenAICompatible = ({
 	}, [])
 
 	useEvent("message", onMessage)
+
+	useEffect(() => {
+		if (!fromWelcomeView) {
+			return
+		}
+
+		if (!apiConfiguration?.openAiBaseUrl) {
+			setApiConfigurationField("openAiBaseUrl", "https://api.sarvam.ai/v1")
+		}
+
+		if (!apiConfiguration?.openAiModelId) {
+			setApiConfigurationField("openAiModelId", "sarvam-105b")
+		}
+
+		if (!apiConfiguration?.openAiCustomModelInfo?.contextWindow) {
+			setApiConfigurationField("openAiCustomModelInfo", {
+				...(apiConfiguration?.openAiCustomModelInfo || openAiModelInfoSaneDefaults),
+				contextWindow: 128000,
+			})
+		}
+	}, [
+		fromWelcomeView,
+		apiConfiguration?.openAiBaseUrl,
+		apiConfiguration?.openAiModelId,
+		apiConfiguration?.openAiCustomModelInfo,
+		setApiConfigurationField,
+	])
 
 	return (
 		<>

@@ -18,7 +18,6 @@ import {
 	Database,
 	SquareTerminal,
 	FlaskConical,
-	AlertTriangle,
 	Globe,
 	Info,
 	MessageSquare,
@@ -38,7 +37,6 @@ import {
 	AlertDialogTitle,
 	AlertDialogDescription,
 	AlertDialogCancel,
-	AlertDialogAction,
 	AlertDialogHeader,
 	AlertDialogFooter,
 	Button,
@@ -105,7 +103,6 @@ const SettingsView = forwardRef<SettingsViewRef, SettingsViewProps>(({ onDone, t
 	const extensionState = useExtensionState()
 	const { currentApiConfigName, listApiConfigMeta, uriScheme, settingsImportedAt } = extensionState
 
-	const [isDiscardDialogShow, setDiscardDialogShow] = useState(false)
 	const [isChangeDetected, setChangeDetected] = useState(false)
 	const [errorMessage, setErrorMessage] = useState<string | undefined>(undefined)
 	const [isSystemPromptDialogOpen, setIsSystemPromptDialogOpen] = useState(false)
@@ -118,7 +115,6 @@ const SettingsView = forwardRef<SettingsViewRef, SettingsViewProps>(({ onDone, t
 	)
 
 	const prevApiConfigName = useRef(currentApiConfigName)
-	const confirmDialogHandler = useRef<() => void>()
 
 	const [cachedState, setCachedState] = useState(extensionState)
 
@@ -342,30 +338,12 @@ const SettingsView = forwardRef<SettingsViewRef, SettingsViewProps>(({ onDone, t
 
 	const checkUnsaveChanges = useCallback(
 		(then: () => void) => {
-			if (isChangeDetected) {
-				confirmDialogHandler.current = then
-				setDiscardDialogShow(true)
-			} else {
-				then()
-			}
+			then()
 		},
-		[isChangeDetected],
+		[],
 	)
 
 	useImperativeHandle(ref, () => ({ checkUnsaveChanges }), [checkUnsaveChanges])
-
-	const onConfirmDialogResult = useCallback(
-		(confirm: boolean) => {
-			if (confirm) {
-				// Discard changes: Reset state and flag
-				setCachedState(extensionState) // Revert to original state
-				setChangeDetected(false) // Reset change flag
-				confirmDialogHandler.current?.() // Execute the pending action (e.g., tab switch)
-			}
-			// If confirm is false (Cancel), do nothing, dialog closes automatically
-		},
-		[extensionState], // Depend on extensionState to get the latest original state
-	)
 
 	// Handle tab changes with unsaved changes check
 	const handleTabChange = useCallback(
@@ -406,11 +384,11 @@ const SettingsView = forwardRef<SettingsViewRef, SettingsViewProps>(({ onDone, t
 	const sections: { id: SectionName; icon: LucideIcon }[] = useMemo(
 		() => [
 			{ id: "providers", icon: Webhook },
-			//{ id: "autoApprove", icon: CheckCheck },
+			{ id: "autoApprove", icon: CheckCheck },
 			//{ id: "browser", icon: SquareMousePointer },
 			//{ id: "checkpoints", icon: GitBranch },
 			//{ id: "notifications", icon: Bell },
-			//{ id: "contextManagement", icon: Database },
+			{ id: "contextManagement", icon: Database },
 			//{ id: "terminal", icon: SquareTerminal },
 			//{ id: "prompts", icon: MessageSquare },
 			//{ id: "experimental", icon: FlaskConical },
@@ -497,6 +475,9 @@ const SettingsView = forwardRef<SettingsViewRef, SettingsViewProps>(({ onDone, t
 					<h3 className="text-vscode-foreground m-0">{t("settings:header.title")}</h3>
 				</div>
 				<div className="flex gap-2">
+					<Button variant="destructive" onClick={() => vscode.postMessage({ type: "resetState" })}>
+						{t("settings:footer.settings.reset")}
+					</Button>
 					<StandardTooltip
 						content={
 							!isSettingValid
@@ -695,6 +676,8 @@ const SettingsView = forwardRef<SettingsViewRef, SettingsViewProps>(({ onDone, t
 							listApiConfigMeta={listApiConfigMeta ?? []}
 							maxOpenTabsContext={maxOpenTabsContext}
 							maxWorkspaceFiles={maxWorkspaceFiles ?? 200}
+							allowedCommands={allowedCommands}
+							deniedCommands={deniedCommands}
 							showRooIgnoredFiles={showRooIgnoredFiles}
 							maxReadFileLine={maxReadFileLine}
 							maxConcurrentFileReads={maxConcurrentFileReads}
@@ -745,28 +728,6 @@ const SettingsView = forwardRef<SettingsViewRef, SettingsViewProps>(({ onDone, t
 					)}
 				</TabContent>
 			</div>
-
-			<AlertDialog open={isDiscardDialogShow} onOpenChange={setDiscardDialogShow}>
-				<AlertDialogContent>
-					<AlertDialogHeader>
-						<AlertDialogTitle>
-							<AlertTriangle className="w-5 h-5 text-yellow-500" />
-							{t("settings:unsavedChangesDialog.title")}
-						</AlertDialogTitle>
-						<AlertDialogDescription>
-							{t("settings:unsavedChangesDialog.description")}
-						</AlertDialogDescription>
-					</AlertDialogHeader>
-					<AlertDialogFooter>
-						<AlertDialogCancel onClick={() => onConfirmDialogResult(false)}>
-							{t("settings:unsavedChangesDialog.cancelButton")}
-						</AlertDialogCancel>
-						<AlertDialogAction onClick={() => onConfirmDialogResult(true)}>
-							{t("settings:unsavedChangesDialog.discardButton")}
-						</AlertDialogAction>
-					</AlertDialogFooter>
-				</AlertDialogContent>
-			</AlertDialog>
 
 			<AlertDialog open={isSystemPromptDialogOpen} onOpenChange={setIsSystemPromptDialogOpen}>
 				<AlertDialogContent>

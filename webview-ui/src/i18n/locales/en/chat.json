@@ -256,10 +256,10 @@
 		"title": "🎉 AllyTopic Coder {{version}} Released",
 		"description": "AllyTopic Coder {{version}} brings powerful new features and significant improvements to enhance your development workflow.",
 		"whatsNew": "What's New",
-		"feature1": "<bold>Codebase Indexing Graduated from Experimental</bold>: Full codebase indexing is now stable and ready for production use with improved search and context understanding.",
-		"feature2": "<bold>New Todo List Feature</bold>: Keep your tasks on track with integrated todo management that helps you stay organized and focused on your development goals.",
+		"feature1": "<bold>Sarvam</bold>: We are proud to annouce that the AllyTopic Coder will support Sarvam API",
+		"feature2": "<bold>Commands</bold>: For execute task, allowed and denied commands can be maintained in settings",
 		"hideButton": "Hide announcement",
-		"detailsDiscussLinks": "Get more details and discuss in <discordLink>Discord</discordLink> and <redditLink>Reddit</redditLink> 🚀"
+		"detailsDiscussLinks": ""
 	},
 	"reasoning": {
 		"thinking": "Thinking",

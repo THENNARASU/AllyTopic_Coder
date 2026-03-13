@@ -12,9 +12,9 @@
 			"description": "A unified interface for LLMs"
 		}
 	},
-	"chooseProvider": "To do its magic, Roo needs an API key.",
+	"chooseProvider": "To do its magic, AllyTopic Coder needs an API key.",
 	"startRouter": "We recommend using an LLM Router:",
-	"startCustom": "Or you can bring your provider API key:",
+	"startCustom": "Enter your provider API key:",
 	"telemetry": {
 		"title": "Help Improve AllyTopic Coder",
 		"anonymousTelemetry": "Send anonymous error and usage data to help us fix bugs and improve the extension. No code, prompts, or personal information is ever sent (unless you connect to AllyTopic Coder Cloud). See our <privacyLink>privacy policy</privacyLink> for more details.",

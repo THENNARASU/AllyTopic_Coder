@@ -5,16 +5,17 @@ import { cn } from "@/lib/utils"
 import { Button, StandardTooltip } from "@/components/ui"
 
 type AutoApproveToggles = Pick<
-	   GlobalSettings,
-	   | "alwaysAllowReadOnly"
-	   | "alwaysAllowWrite"
-	   | "alwaysApproveResubmit"
-	   | "alwaysAllowMcp"
-	   | "alwaysAllowModeSwitch"
-	   | "alwaysAllowSubtasks"
-	   | "alwaysAllowExecute"
-	   | "alwaysAllowFollowupQuestions"
-	   | "alwaysAllowUpdateTodoList"
+    GlobalSettings,
+	| "alwaysAllowReadOnly"
+	| "alwaysAllowWrite"
+	| "alwaysApproveResubmit"
+	| "alwaysAllowMcp"
+	| "alwaysAllowModeSwitch"
+	| "alwaysAllowSubtasks"
+	| "alwaysAllowExecute"
+	| "alwaysAllowFollowupQuestions"
+	| "alwaysAllowUpdateTodoList"
+	| "alwaysAllowBrowser"
 >
 
 export type AutoApproveSetting = keyof AutoApproveToggles
@@ -28,69 +29,76 @@ type AutoApproveConfig = {
 }
 
 export const autoApproveSettingsConfig: Record<AutoApproveSetting, AutoApproveConfig> = {
-    alwaysAllowReadOnly: {
-        key: "alwaysAllowReadOnly",
-        labelKey: "settings:autoApprove.readOnly.label",
-        descriptionKey: "settings:autoApprove.readOnly.description",
-        icon: "eye",
-        testId: "always-allow-readonly-toggle",
-    },
-    alwaysAllowWrite: {
-        key: "alwaysAllowWrite",
-        labelKey: "settings:autoApprove.write.label",
-        descriptionKey: "settings:autoApprove.write.description",
-        icon: "edit",
-        testId: "always-allow-write-toggle",
-    },
-    alwaysApproveResubmit: {
-        key: "alwaysApproveResubmit",
-        labelKey: "settings:autoApprove.retry.label",
-        descriptionKey: "settings:autoApprove.retry.description",
-        icon: "refresh",
-        testId: "always-approve-resubmit-toggle",
-    },
-    alwaysAllowMcp: {
-        key: "alwaysAllowMcp",
-        labelKey: "settings:autoApprove.mcp.label",
-        descriptionKey: "settings:autoApprove.mcp.description",
-        icon: "server",
-        testId: "always-allow-mcp-toggle",
-    },
-    alwaysAllowModeSwitch: {
-        key: "alwaysAllowModeSwitch",
-        labelKey: "settings:autoApprove.modeSwitch.label",
-        descriptionKey: "settings:autoApprove.modeSwitch.description",
-        icon: "sync",
-        testId: "always-allow-mode-switch-toggle",
-    },
-    alwaysAllowSubtasks: {
-        key: "alwaysAllowSubtasks",
-        labelKey: "settings:autoApprove.subtasks.label",
-        descriptionKey: "settings:autoApprove.subtasks.description",
-        icon: "list-tree",
-        testId: "always-allow-subtasks-toggle",
-    },
-    alwaysAllowExecute: {
-        key: "alwaysAllowExecute",
-        labelKey: "settings:autoApprove.execute.label",
-        descriptionKey: "settings:autoApprove.execute.description",
-        icon: "terminal",
-        testId: "always-allow-execute-toggle",
-    },
-    alwaysAllowFollowupQuestions: {
-        key: "alwaysAllowFollowupQuestions",
-        labelKey: "settings:autoApprove.followupQuestions.label",
-        descriptionKey: "settings:autoApprove.followupQuestions.description",
-        icon: "question",
-        testId: "always-allow-followup-questions-toggle",
-    },
-    alwaysAllowUpdateTodoList: {
-        key: "alwaysAllowUpdateTodoList",
-        labelKey: "settings:autoApprove.updateTodoList.label",
-        descriptionKey: "settings:autoApprove.updateTodoList.description",
-        icon: "checklist",
-        testId: "always-allow-update-todo-list-toggle",
-    },
+	alwaysAllowReadOnly: {
+		key: "alwaysAllowReadOnly",
+		labelKey: "settings:autoApprove.readOnly.label",
+		descriptionKey: "settings:autoApprove.readOnly.description",
+		icon: "eye",
+		testId: "always-allow-readonly-toggle",
+	},
+	alwaysAllowWrite: {
+		key: "alwaysAllowWrite",
+		labelKey: "settings:autoApprove.write.label",
+		descriptionKey: "settings:autoApprove.write.description",
+		icon: "edit",
+		testId: "always-allow-write-toggle",
+	},
+	alwaysApproveResubmit: {
+		key: "alwaysApproveResubmit",
+		labelKey: "settings:autoApprove.retry.label",
+		descriptionKey: "settings:autoApprove.retry.description",
+		icon: "refresh",
+		testId: "always-approve-resubmit-toggle",
+	},
+	alwaysAllowMcp: {
+		key: "alwaysAllowMcp",
+		labelKey: "settings:autoApprove.mcp.label",
+		descriptionKey: "settings:autoApprove.mcp.description",
+		icon: "server",
+		testId: "always-allow-mcp-toggle",
+	},
+	alwaysAllowModeSwitch: {
+		key: "alwaysAllowModeSwitch",
+		labelKey: "settings:autoApprove.modeSwitch.label",
+		descriptionKey: "settings:autoApprove.modeSwitch.description",
+		icon: "sync",
+		testId: "always-allow-mode-switch-toggle",
+	},
+	alwaysAllowSubtasks: {
+		key: "alwaysAllowSubtasks",
+		labelKey: "settings:autoApprove.subtasks.label",
+		descriptionKey: "settings:autoApprove.subtasks.description",
+		icon: "layers",
+		testId: "always-allow-subtasks-toggle",
+	},
+	alwaysAllowExecute: {
+		key: "alwaysAllowExecute",
+		labelKey: "settings:autoApprove.execute.label",
+		descriptionKey: "settings:autoApprove.execute.description",
+		icon: "terminal",
+		testId: "always-allow-execute-toggle",
+	},
+	alwaysAllowFollowupQuestions: {
+		key: "alwaysAllowFollowupQuestions",
+		labelKey: "settings:autoApprove.followupQuestions.label",
+		descriptionKey: "settings:autoApprove.followupQuestions.description",
+		icon: "question",
+		testId: "always-allow-followup-questions-toggle",
+	},
+	alwaysAllowUpdateTodoList: {
+		key: "alwaysAllowUpdateTodoList",
+		labelKey: "settings:autoApprove.updateTodoList.label",
+		descriptionKey: "settings:autoApprove.updateTodoList.description",
+		icon: "checklist",
+		testId: "always-allow-update-todo-list-toggle",
+	},
+	alwaysAllowBrowser: {
+		key: "alwaysAllowBrowser",
+		labelKey: "settings:autoApprove.browser.label",
+		descriptionKey: "settings:autoApprove.browser.description",
+		icon: "globe",
+		testId: "always-allow-browser-toggle",
+	},
 }
 
 type AutoApproveToggleProps = AutoApproveToggles & {
@@ -98,37 +106,36 @@ type AutoApproveToggleProps = AutoApproveToggles & {
 }
 
 export const AutoApproveToggle = ({ onToggle, ...props }: AutoApproveToggleProps) => {
-    const { t } = useAppTranslation()
+	const { t } = useAppTranslation()
 
-    return (
-        <div
-            className={cn(
-                "flex flex-row flex-wrap justify-center gap-2 max-w-[600px] mx-auto my-2 ",
-                "[@media(min-width:600px)]:gap-4",
-                "[@media(min-width:800px)]:max-w-[900px]",
-                "[@media(min-width:1200px)]:max-w-[1800px]",
-            )}>
-            {Object.keys(autoApproveSettingsConfig).map((key) => {
-                const typedKey = key as AutoApproveSetting;
-                const setting = autoApproveSettingsConfig[typedKey];
-                return (
-                    <StandardTooltip key={setting.key} content={t(setting.descriptionKey || "")}> 
-                        <Button
-                            variant={props[typedKey] ? "default" : "outline"}
-                            onClick={() => onToggle(typedKey, !props[typedKey])}
-                            aria-label={t(setting.labelKey)}
-                            aria-pressed={!!props[typedKey]}
-                            data-testid={setting.testId}
-                            className={cn(" aspect-square h-[80px]", !props[typedKey] && "opacity-50")}
-                        >
-                            <span className={cn("flex flex-col items-center gap-1")}> 
-                                <span className={`codicon codicon-${setting.icon}`} />
-                                <span className="text-sm text-center">{t(setting.labelKey)}</span>
-                            </span>
-                        </Button>
-                    </StandardTooltip>
-                );
-            })}
-        </div>
-    )
+	return (
+		<div
+			className={cn(
+				"flex flex-row flex-wrap justify-center gap-2 max-w-[600px] mx-auto my-2 ",
+				"[@media(min-width:600px)]:gap-4",
+				"[@media(min-width:800px)]:max-w-[900px]",
+				"[@media(min-width:1200px)]:max-w-[1800px]",
+			)}>
+			{Object.keys(autoApproveSettingsConfig).map((key) => {
+				const typedKey = key as AutoApproveSetting
+				const setting = autoApproveSettingsConfig[typedKey]
+				return (
+					<StandardTooltip key={setting.key} content={t(setting.descriptionKey || "")}>
+						<Button
+							variant={props[typedKey] ? "default" : "outline"}
+							onClick={() => onToggle(typedKey, !props[typedKey])}
+							aria-label={t(setting.labelKey)}
+							aria-pressed={!!props[typedKey]}
+							data-testid={setting.testId}
+							className={cn(" aspect-square h-[80px]", !props[typedKey] && "opacity-50")}>
+							<span className={cn("flex flex-col items-center gap-1")}>
+								<span className={`codicon codicon-${setting.icon}`} />
+								<span className="text-sm text-center">{t(setting.labelKey)}</span>
+							</span>
+						</Button>
+					</StandardTooltip>
+				)
+			})}
+		</div>
+	)
 }

@@ -18,6 +18,8 @@ type ContextManagementSettingsProps = HTMLAttributes<HTMLDivElement> & {
 	listApiConfigMeta: any[]
 	maxOpenTabsContext: number
 	maxWorkspaceFiles: number
+	allowedCommands?: string[]
+	deniedCommands?: string[]
 	showRooIgnoredFiles?: boolean
 	maxReadFileLine?: number
 	maxConcurrentFileReads?: number
@@ -40,6 +42,8 @@ export const ContextManagementSettings = ({
 	listApiConfigMeta,
 	maxOpenTabsContext,
 	maxWorkspaceFiles,
+	allowedCommands,
+	deniedCommands,
 	showRooIgnoredFiles,
 	setCachedStateField,
 	maxReadFileLine,
@@ -124,6 +128,46 @@ export const ContextManagementSettings = ({
 					</div>
 					<div className="text-vscode-descriptionForeground text-sm mt-1">
 						{t("settings:contextManagement.workspaceFiles.description")}
+					</div>
+				</div>
+
+				<div>
+					<span className="block font-medium mb-1">Allowed commands</span>
+					<div className="text-vscode-descriptionForeground text-sm mt-1 mb-2">
+						Commands currently eligible for auto-approve when Execute is enabled.
+					</div>
+					<div className="flex flex-wrap gap-2" data-testid="context-allowed-commands-list">
+						{(allowedCommands ?? []).length > 0 ? (
+							(allowedCommands ?? []).map((cmd, index) => (
+								<span
+									key={`allowed-${index}`}
+									className="px-2 py-1 rounded border border-vscode-input-border text-vscode-foreground bg-vscode-badge-background">
+									{cmd}
+								</span>
+							))
+						) : (
+							<span className="text-vscode-descriptionForeground text-sm">None configured</span>
+						)}
+					</div>
+				</div>
+
+				<div>
+					<span className="block font-medium mb-1">Denied commands</span>
+					<div className="text-vscode-descriptionForeground text-sm mt-1 mb-2">
+						Commands currently blocked from auto-approve.
+					</div>
+					<div className="flex flex-wrap gap-2" data-testid="context-denied-commands-list">
+						{(deniedCommands ?? []).length > 0 ? (
+							(deniedCommands ?? []).map((cmd, index) => (
+								<span
+									key={`denied-${index}`}
+									className="px-2 py-1 rounded border border-vscode-input-border text-vscode-foreground bg-vscode-inputValidation-warningBackground">
+									{cmd}
+								</span>
+							))
+						) : (
+							<span className="text-vscode-descriptionForeground text-sm">None configured</span>
+						)}
 					</div>
 				</div>
 
