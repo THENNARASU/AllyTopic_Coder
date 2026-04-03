@@ -1,4 +1,7 @@
 # Changelog
+## 6.0.0
+
+ - Minor Improvements
 
 ## 5.0.0
 
