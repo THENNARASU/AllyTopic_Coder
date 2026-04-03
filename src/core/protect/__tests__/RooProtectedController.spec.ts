@@ -10,22 +10,22 @@ describe("RooProtectedController", () => {
 	})
 
 	describe("isWriteProtected", () => {
-		it("should protect .rooignore file", () => {
-			expect(controller.isWriteProtected(".rooignore")).toBe(true)
+		it("should protect .allytopicignore file", () => {
+			expect(controller.isWriteProtected(".allytopicignore")).toBe(true)
 		})
 
-		it("should protect files in .roo directory", () => {
-			expect(controller.isWriteProtected(".roo/config.json")).toBe(true)
-			expect(controller.isWriteProtected(".roo/settings/user.json")).toBe(true)
-			expect(controller.isWriteProtected(".roo/modes/custom.json")).toBe(true)
+		it("should protect files in .allytopic directory", () => {
+			expect(controller.isWriteProtected(".allytopic/config.json")).toBe(true)
+			expect(controller.isWriteProtected(".allytopic/settings/user.json")).toBe(true)
+			expect(controller.isWriteProtected(".allytopic/modes/custom.json")).toBe(true)
 		})
 
 		it("should protect .rooprotected file", () => {
 			expect(controller.isWriteProtected(".rooprotected")).toBe(true)
 		})
 
-		it("should protect .roomodes files", () => {
-			expect(controller.isWriteProtected(".roomodes")).toBe(true)
+		it("should protect .allytopicmodes files", () => {
+			expect(controller.isWriteProtected(".allytopicmodes")).toBe(true)
 		})
 
 		it("should protect .roorules* files", () => {
@@ -44,9 +44,9 @@ describe("RooProtectedController", () => {
 			expect(controller.isWriteProtected(".vscode/tasks.json")).toBe(true)
 		})
 
-		it("should not protect other files starting with .roo", () => {
-			expect(controller.isWriteProtected(".roosettings")).toBe(false)
-			expect(controller.isWriteProtected(".rooconfig")).toBe(false)
+		it("should not protect other files starting with .allytopic", () => {
+			expect(controller.isWriteProtected(".allytopicsettings")).toBe(false)
+			expect(controller.isWriteProtected(".allytopicconfig")).toBe(false)
 		})
 
 		it("should not protect regular files", () => {
@@ -61,30 +61,30 @@ describe("RooProtectedController", () => {
 		})
 
 		it("should handle nested paths correctly", () => {
-			expect(controller.isWriteProtected(".roo/config.json")).toBe(true) // .roo/** matches at root
-			expect(controller.isWriteProtected("nested/.rooignore")).toBe(true) // .rooignore matches anywhere by default
-			expect(controller.isWriteProtected("nested/.roomodes")).toBe(true) // .roomodes matches anywhere by default
+			expect(controller.isWriteProtected(".allytopic/config.json")).toBe(true) // .allytopic/** matches at root
+			expect(controller.isWriteProtected("nested/.allytopicignore")).toBe(true) // .allytopicignore matches anywhere by default
+			expect(controller.isWriteProtected("nested/.allytopicmodes")).toBe(true) // .allytopicmodes matches anywhere by default
 			expect(controller.isWriteProtected("nested/.roorules.md")).toBe(true) // .roorules* matches anywhere by default
 		})
 
 		it("should handle absolute paths by converting to relative", () => {
-			const absolutePath = path.join(TEST_CWD, ".rooignore")
+			const absolutePath = path.join(TEST_CWD, ".allytopicignore")
 			expect(controller.isWriteProtected(absolutePath)).toBe(true)
 		})
 
 		it("should handle paths with different separators", () => {
-			expect(controller.isWriteProtected(".roo\\config.json")).toBe(true)
-			expect(controller.isWriteProtected(".roo/config.json")).toBe(true)
+			expect(controller.isWriteProtected(".allytopic\\config.json")).toBe(true)
+			expect(controller.isWriteProtected(".allytopic/config.json")).toBe(true)
 		})
 	})
 
 	describe("getProtectedFiles", () => {
 		it("should return set of protected files from a list", () => {
-			const files = ["src/index.ts", ".rooignore", "package.json", ".roo/config.json", "README.md"]
+			const files = ["src/index.ts", ".allytopicignore", "package.json", ".allytopic/config.json", "README.md"]
 
 			const protectedFiles = controller.getProtectedFiles(files)
 
-			expect(protectedFiles).toEqual(new Set([".rooignore", ".roo/config.json"]))
+			expect(protectedFiles).toEqual(new Set([".allytopicignore", ".allytopic/config.json"]))
 		})
 
 		it("should return empty set when no files are protected", () => {
@@ -98,16 +98,16 @@ describe("RooProtectedController", () => {
 
 	describe("annotatePathsWithProtection", () => {
 		it("should annotate paths with protection status", () => {
-			const files = ["src/index.ts", ".rooignore", ".roo/config.json", "package.json"]
+			const files = ["src/index.ts", ".allytopicignore", ".allytopic/config.json", "package.json"]
 
 			const annotated = controller.annotatePathsWithProtection(files)
 
-			expect(annotated).toEqual([
-				{ path: "src/index.ts", isProtected: false },
-				{ path: ".rooignore", isProtected: true },
-				{ path: ".roo/config.json", isProtected: true },
-				{ path: "package.json", isProtected: false },
-			])
+				expect(annotated).toEqual([
+					{ path: "src/index.ts", isProtected: false },
+					{ path: ".allytopicignore", isProtected: true },
+					{ path: ".allytopic/config.json", isProtected: true },
+					{ path: "package.json", isProtected: false },
+				])
 		})
 	})
 
@@ -124,8 +124,8 @@ describe("RooProtectedController", () => {
 
 			expect(instructions).toContain("# Protected Files")
 			expect(instructions).toContain("write-protected")
-			expect(instructions).toContain(".rooignore")
-			expect(instructions).toContain(".roo/**")
+			expect(instructions).toContain(".allytopicignore")
+			expect(instructions).toContain(".allytopic/**")
 			expect(instructions).toContain("\u{1F6E1}") // Shield symbol
 		})
 	})
@@ -135,11 +135,11 @@ describe("RooProtectedController", () => {
 			const patterns = RooProtectedController.getProtectedPatterns()
 
 			expect(patterns).toEqual([
-				".rooignore",
-				".roomodes",
+				".allytopicignore",
+				".allytopicmodes",
 				".roorules*",
 				".clinerules*",
-				".roo/**",
+				".allytopic/**",
 				".vscode/**",
 				".rooprotected",
 			])

@@ -42,15 +42,15 @@ describe("RooConfigService", () => {
 	})
 
 	describe("getGlobalRooDirectory", () => {
-		it("should return correct path for global .roo directory", () => {
+		it("should return correct path for global .allytopic directory", () => {
 			const result = getGlobalRooDirectory()
-			expect(result).toBe(path.join("/mock/home", ".roo"))
+			expect(result).toBe(path.join("/mock/home", ".allytopic"))
 		})
 
 		it("should handle different home directories", () => {
 			mockHomedir.mockReturnValue("/different/home")
 			const result = getGlobalRooDirectory()
-			expect(result).toBe(path.join("/different/home", ".roo"))
+			expect(result).toBe(path.join("/different/home", ".allytopic"))
 		})
 	})
 
@@ -58,7 +58,7 @@ describe("RooConfigService", () => {
 		it("should return correct path for given cwd", () => {
 			const cwd = "/custom/project/path"
 			const result = getProjectRooDirectoryForCwd(cwd)
-			expect(result).toBe(path.join(cwd, ".roo"))
+			expect(result).toBe(path.join(cwd, ".allytopic"))
 		})
 	})
 
@@ -211,7 +211,7 @@ describe("RooConfigService", () => {
 
 			const result = getRooDirectoriesForCwd(cwd)
 
-			expect(result).toEqual([path.join("/mock/home", ".roo"), path.join(cwd, ".roo")])
+			expect(result).toEqual([path.join("/mock/home", ".allytopic"), path.join(cwd, ".allytopic")])
 		})
 	})
 
@@ -294,8 +294,8 @@ describe("RooConfigService", () => {
 
 			await loadConfiguration("rules/rules.md", "/project/path")
 
-			expect(mockReadFile).toHaveBeenCalledWith(path.join("/mock/home", ".roo", "rules/rules.md"), "utf-8")
-			expect(mockReadFile).toHaveBeenCalledWith(path.join("/project/path", ".roo", "rules/rules.md"), "utf-8")
+			expect(mockReadFile).toHaveBeenCalledWith(path.join("/mock/home", ".allytopic", "rules/rules.md"), "utf-8")
+			expect(mockReadFile).toHaveBeenCalledWith(path.join("/project/path", ".allytopic", "rules/rules.md"), "utf-8")
 		})
 	})
 })

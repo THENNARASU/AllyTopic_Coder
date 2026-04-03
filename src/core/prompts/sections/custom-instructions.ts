@@ -184,7 +184,7 @@ export async function loadRuleFiles(cwd: string): Promise<string> {
 	const rules: string[] = []
 	const rooDirectories = getRooDirectoriesForCwd(cwd)
 
-	// Check for .roo/rules/ directories in order (global first, then project-local)
+	// Check for .allytopic/rules/ directories in order (global first, then project-local)
 	for (const rooDir of rooDirectories) {
 		const rulesDir = path.join(rooDir, "rules")
 		if (await directoryExists(rulesDir)) {
@@ -196,7 +196,7 @@ export async function loadRuleFiles(cwd: string): Promise<string> {
 		}
 	}
 
-	// If we found rules in .roo/rules/ directories, return them
+	// If we found rules in .allytopic/rules/ directories, return them
 	if (rules.length > 0) {
 		return "\n" + rules.join("\n\n")
 	}

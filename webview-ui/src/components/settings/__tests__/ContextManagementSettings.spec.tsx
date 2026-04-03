@@ -66,7 +66,7 @@ describe("ContextManagementSettings", () => {
 		const workspaceFilesSlider = screen.getByTestId("workspace-files-limit-slider")
 		expect(workspaceFilesSlider).toBeInTheDocument()
 
-		// Show .rooignore'd files
+		// Show .allytopicignore'd files
 		const showRooIgnoredFilesCheckbox = screen.getByTestId("show-rooignored-files-checkbox")
 		expect(showRooIgnoredFilesCheckbox).toBeInTheDocument()
 		expect(screen.getByTestId("show-rooignored-files-checkbox")).not.toBeChecked()
@@ -110,7 +110,7 @@ describe("ContextManagementSettings", () => {
 		expect(mockSetCachedStateField).toHaveBeenCalledWith("maxWorkspaceFiles", 201)
 	})
 
-	it("updates show rooignored files setting", () => {
+	it("updates show allytopicignored files setting", () => {
 		render(<ContextManagementSettings {...defaultProps} />)
 
 		const checkbox = screen.getByTestId("show-rooignored-files-checkbox")

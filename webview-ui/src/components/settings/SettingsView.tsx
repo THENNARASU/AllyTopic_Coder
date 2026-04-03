@@ -92,6 +92,22 @@ const sectionNames = [
 
 type SectionName = (typeof sectionNames)[number]
 
+const visibleSections: { id: SectionName; icon: LucideIcon }[] = [
+	{ id: "providers", icon: Webhook },
+	{ id: "autoApprove", icon: CheckCheck },
+	//{ id: "browser", icon: SquareMousePointer },
+	//{ id: "checkpoints", icon: GitBranch },
+	//{ id: "notifications", icon: Bell },
+	//{ id: "contextManagement", icon: Database },
+	//{ id: "terminal", icon: SquareTerminal },
+	//{ id: "prompts", icon: MessageSquare },
+	//{ id: "experimental", icon: FlaskConical },
+	//{ id: "language", icon: Globe },
+	//{ id: "about", icon: Info },
+]
+
+const visibleSectionIds = visibleSections.map((section) => section.id)
+
 type SettingsViewProps = {
 	onDone: () => void
 	targetSection?: string
@@ -109,7 +125,7 @@ const SettingsView = forwardRef<SettingsViewRef, SettingsViewProps>(({ onDone, t
 	const [systemPromptTitle, setSystemPromptTitle] = useState("")
 	const [systemPromptContent, setSystemPromptContent] = useState("")
 	const [activeTab, setActiveTab] = useState<SectionName>(
-		targetSection && sectionNames.includes(targetSection as SectionName)
+		targetSection && visibleSectionIds.includes(targetSection as SectionName)
 			? (targetSection as SectionName)
 			: "providers",
 	)
@@ -381,29 +397,18 @@ const SettingsView = forwardRef<SettingsViewRef, SettingsViewProps>(({ onDone, t
 		}
 	}, [])
 
-	const sections: { id: SectionName; icon: LucideIcon }[] = useMemo(
-		() => [
-			{ id: "providers", icon: Webhook },
-			{ id: "autoApprove", icon: CheckCheck },
-			//{ id: "browser", icon: SquareMousePointer },
-			//{ id: "checkpoints", icon: GitBranch },
-			//{ id: "notifications", icon: Bell },
-			{ id: "contextManagement", icon: Database },
-			//{ id: "terminal", icon: SquareTerminal },
-			//{ id: "prompts", icon: MessageSquare },
-			//{ id: "experimental", icon: FlaskConical },
-			//{ id: "language", icon: Globe },
-			//{ id: "about", icon: Info },
-		],
-		[], // No dependencies needed now
-	)
-
 	// Update target section logic to set active tab
 	useEffect(() => {
-		if (targetSection && sectionNames.includes(targetSection as SectionName)) {
+		if (targetSection && visibleSectionIds.includes(targetSection as SectionName)) {
 			setActiveTab(targetSection as SectionName)
 		}
 	}, [targetSection])
+
+	useEffect(() => {
+		if (!visibleSectionIds.includes(activeTab)) {
+			setActiveTab("providers")
+		}
+	}, [activeTab])
 
 	// Function to scroll the active tab into view for vertical layout
 	const scrollToActiveTab = useCallback(() => {
@@ -512,7 +517,7 @@ const SettingsView = forwardRef<SettingsViewRef, SettingsViewProps>(({ onDone, t
 					className={cn(settingsTabList)}
 					data-compact={isCompactMode}
 					data-testid="settings-tab-list">
-					{sections.map(({ id, icon: Icon }) => {
+					{visibleSections.map(({ id, icon: Icon }) => {
 						const isSelected = id === activeTab
 						const onSelect = () => handleTabChange(id)
 

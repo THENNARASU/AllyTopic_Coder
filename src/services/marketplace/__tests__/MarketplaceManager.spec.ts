@@ -192,14 +192,14 @@ describe("MarketplaceManager", () => {
 
 			// Mock the installer
 			vi.spyOn(manager["installer"], "installItem").mockResolvedValue({
-				filePath: "/test/path/.roomodes",
+				filePath: "/test/path/.allytopicmodes",
 				line: 5,
 			})
 
 			const result = await manager.installMarketplaceItem(item)
 
 			expect(manager["installer"].installItem).toHaveBeenCalledWith(item, { target: "project" })
-			expect(result).toBe("/test/path/.roomodes")
+			expect(result).toBe("/test/path/.allytopicmodes")
 		})
 
 		it("should install an MCP item", async () => {
@@ -214,14 +214,14 @@ describe("MarketplaceManager", () => {
 
 			// Mock the installer
 			vi.spyOn(manager["installer"], "installItem").mockResolvedValue({
-				filePath: "/test/path/.roo/mcp.json",
+				filePath: "/test/path/.allytopic/mcp.json",
 				line: 3,
 			})
 
 			const result = await manager.installMarketplaceItem(item)
 
 			expect(manager["installer"].installItem).toHaveBeenCalledWith(item, { target: "project" })
-			expect(result).toBe("/test/path/.roo/mcp.json")
+			expect(result).toBe("/test/path/.allytopic/mcp.json")
 		})
 	})
 

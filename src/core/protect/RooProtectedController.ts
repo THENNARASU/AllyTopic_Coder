@@ -4,20 +4,20 @@ import ignore, { Ignore } from "ignore"
 export const SHIELD_SYMBOL = "\u{1F6E1}"
 
 /**
- * Controls write access to Roo configuration files by enforcing protection patterns.
- * Prevents auto-approved modifications to sensitive Roo configuration files.
+ * Controls write access to AllyTopic Coder configuration files by enforcing protection patterns.
+ * Prevents auto-approved modifications to sensitive AllyTopic Coder configuration files.
  */
 export class RooProtectedController {
 	private cwd: string
 	private ignoreInstance: Ignore
 
-	// Predefined list of protected Roo configuration patterns
+	// Predefined list of protected AllyTopic Coder configuration patterns
 	private static readonly PROTECTED_PATTERNS = [
-		".rooignore",
-		".roomodes",
+		".allytopicignore",
+		".allytopicmodes",
 		".roorules*",
 		".clinerules*",
-		".roo/**",
+		".allytopic/**",
 		".vscode/**",
 		".rooprotected", // For future use
 	]
@@ -83,7 +83,7 @@ export class RooProtectedController {
 	 * Get display message for protected file operations
 	 */
 	getProtectionMessage(): string {
-		return "This is a Roo configuration file and requires approval for modifications"
+		return "This is an AllyTopic Coder configuration file and requires approval for modifications"
 	}
 
 	/**
@@ -92,7 +92,7 @@ export class RooProtectedController {
 	 */
 	getInstructions(): string {
 		const patterns = RooProtectedController.PROTECTED_PATTERNS.join(", ")
-		return `# Protected Files\n\n(The following Roo configuration file patterns are write-protected and always require approval for modifications, regardless of autoapproval settings. When using list_files, you'll notice a ${SHIELD_SYMBOL} next to files that are write-protected.)\n\nProtected patterns: ${patterns}`
+		return `# Protected Files\n\n(The following AllyTopic Coder configuration file patterns are write-protected and always require approval for modifications, regardless of autoapproval settings. When using list_files, you'll notice a ${SHIELD_SYMBOL} next to files that are write-protected.)\n\nProtected patterns: ${patterns}`
 	}
 
 	/**

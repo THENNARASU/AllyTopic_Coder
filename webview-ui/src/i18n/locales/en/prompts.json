@@ -7,7 +7,7 @@
 		"importMode": "Import Mode",
 		"editModesConfig": "Edit modes configuration",
 		"editGlobalModes": "Edit Global Modes",
-		"editProjectModes": "Edit Project Modes (.roomodes)",
+		"editProjectModes": "Edit Project Modes (.allytopicmodes)",
 		"createModeHelpText": "Modes are specialized personas that tailor AllyTopic Coder's behavior. ",
 		"selectMode": "Search modes",
 		"noMatchFound": "No modes found"
@@ -54,7 +54,7 @@
 	},
 	"exportMode": {
 		"title": "Export Mode",
-		"description": "Export this mode with rules from the .roo/rules-{{slug}}/ folder combined into a shareable YAML file. The original files remain unchanged.",
+		"description": "Export this mode with rules from the .allytopic/rules-{{slug}}/ folder combined into a shareable YAML file. The original files remain unchanged.",
 		"exporting": "Exporting..."
 	},
 	"importMode": {
@@ -63,11 +63,11 @@
 		"importing": "Importing...",
 		"global": {
 			"label": "Global Level",
-			"description": "Available across all projects. If the exported mode contained rules files, they will be recreated in the global .roo/rules-{slug}/ folder."
+			"description": "Available across all projects. If the exported mode contained rules files, they will be recreated in the global .allytopic/rules-{slug}/ folder."
 		},
 		"project": {
 			"label": "Project Level",
-			"description": "Only available in this workspace. If the exported mode contained rules files, they will be recreated in .roo/rules-{slug}/ folder."
+			"description": "Only available in this workspace. If the exported mode contained rules files, they will be recreated in .allytopic/rules-{slug}/ folder."
 		}
 	},
 	"advanced": {
@@ -103,7 +103,7 @@
 		"types": {
 			"ENHANCE": {
 				"label": "Enhance Prompt",
-				"description": "Use prompt enhancement to get tailored suggestions or improvements for your inputs. This ensures Roo understands your intent and provides the best possible responses. Available via the ✨ icon in chat."
+				"description": "Use prompt enhancement to get tailored suggestions or improvements for your inputs. This ensures AllyTopic Coder understands your intent and provides the best possible responses. Available via the ✨ icon in chat."
 			},
 			"CONDENSE": {
 				"label": "Context Condensing",
@@ -145,7 +145,7 @@
 	},
 	"advancedSystemPrompt": {
 		"title": "Advanced: Override System Prompt",
-		"description": "<2>⚠️ Warning:</2> This advanced feature bypasses safeguards. <1>READ THIS BEFORE USING!</1>Override the default system prompt by creating a file at <span>.roo/system-prompt-{{slug}}</span>."
+		"description": "<2>⚠️ Warning:</2> This advanced feature bypasses safeguards. <1>READ THIS BEFORE USING!</1>Override the default system prompt by creating a file at <span>.allytopic/system-prompt-{{slug}}</span>."
 	},
 	"createModeDialog": {
 		"title": "Create New Mode",
@@ -166,13 +166,13 @@
 				"description": "Available in all workspaces"
 			},
 			"project": {
-				"label": "Project-specific (.roomodes)",
+				"label": "Project-specific (.allytopicmodes)",
 				"description": "Only available in this workspace, takes precedence over global"
 			}
 		},
 		"roleDefinition": {
 			"label": "Role Definition",
-			"description": "Define Roo's expertise and personality for this mode."
+			"description": "Define AllyTopic Coder's expertise and personality for this mode."
 		},
 		"description": {
 			"label": "Short description (for humans)",
@@ -180,7 +180,7 @@
 		},
 		"whenToUse": {
 			"label": "When to Use (optional)",
-			"description": "Guidance for Roo for when this mode should be used. This helps the Orchestrator choose the right mode for a task."
+			"description": "Guidance for AllyTopic Coder for when this mode should be used. This helps the Orchestrator choose the right mode for a task."
 		},
 		"tools": {
 			"label": "Available Tools",

@@ -30,16 +30,16 @@ suite.skip("AllyTopic Coder use_mcp_tool Tool", function () {
 		testFiles = {
 			simple: path.join(workspaceDir, `mcp-test-${Date.now()}.txt`),
 			testData: path.join(workspaceDir, `mcp-data-${Date.now()}.json`),
-			mcpConfig: path.join(workspaceDir, ".roo", "mcp.json"),
+			mcpConfig: path.join(workspaceDir, ".allytopic", "mcp.json"),
 		}
 
 		// Create initial test files
 		await fs.writeFile(testFiles.simple, "Initial content for MCP test")
 		await fs.writeFile(testFiles.testData, JSON.stringify({ test: "data", value: 42 }, null, 2))
 
-		// Create .roo directory and MCP configuration file
-		const rooDir = path.join(workspaceDir, ".roo")
-		await fs.mkdir(rooDir, { recursive: true })
+		// Create .allytopic directory and MCP configuration file
+		const allytopicDir = path.join(workspaceDir, ".allytopic")
+		await fs.mkdir(allytopicDir, { recursive: true })
 
 		const mcpConfig = {
 			mcpServers: {
@@ -74,11 +74,11 @@ suite.skip("AllyTopic Coder use_mcp_tool Tool", function () {
 			}
 		}
 
-		// Clean up .roo directory
+		// Clean up .allytopic directory
 		const workspaceDir = vscode.workspace.workspaceFolders?.[0]?.uri.fsPath || tempDir
-		const rooDir = path.join(workspaceDir, ".roo")
+		const allytopicDir = path.join(workspaceDir, ".allytopic")
 		try {
-			await fs.rm(rooDir, { recursive: true, force: true })
+			await fs.rm(allytopicDir, { recursive: true, force: true })
 		} catch {
 			// Directory might not exist
 		}
@@ -515,12 +515,12 @@ suite.skip("AllyTopic Coder use_mcp_tool Tool", function () {
 				responseText.includes("mcp-test-") || responseText.includes(path.basename(testFiles.simple))
 			const hasDataFile =
 				responseText.includes("mcp-data-") || responseText.includes(path.basename(testFiles.testData))
-			const hasRooDir = responseText.includes(".roo")
+			const hasAllytopicDir = responseText.includes(".allytopic")
 
-			// At least one of our test files or the .roo directory should be present
+			// At least one of our test files or the .allytopic directory should be present
 			assert.ok(
-				hasTestFile || hasDataFile || hasRooDir,
-				`MCP server response should contain our test files or .roo directory. Expected to find: '${path.basename(testFiles.simple)}', '${path.basename(testFiles.testData)}', or '.roo'. Got: ${responseText.substring(0, 200)}...`,
+				hasTestFile || hasDataFile || hasAllytopicDir,
+				`MCP server response should contain our test files or .allytopic directory. Expected to find: '${path.basename(testFiles.simple)}', '${path.basename(testFiles.testData)}', or '.allytopic'. Got: ${responseText.substring(0, 200)}...`,
 			)
 
 			// Check for typical directory listing indicators
@@ -661,7 +661,7 @@ suite.skip("AllyTopic Coder use_mcp_tool Tool", function () {
 			const hasTestFiles =
 				responseText.includes("mcp-test-") ||
 				responseText.includes("mcp-data-") ||
-				responseText.includes(".roo") ||
+				responseText.includes(".allytopic") ||
 				responseText.includes(".txt") ||
 				responseText.includes(".json") ||
 				responseText.length > 10 // At least some content indicating directory structure

@@ -559,7 +559,7 @@ const ModesView = ({ onDone }: ModesViewProps) => {
 												e.preventDefault() // Prevent blur
 												vscode.postMessage({
 													type: "openFile",
-													text: "./.roomodes",
+													text: "./.allytopicmodes",
 													values: {
 														create: true,
 														content: JSON.stringify({ customModes: [] }, null, 2),
@@ -1143,7 +1143,7 @@ const ModesView = ({ onDone }: ModesViewProps) => {
 												// Open or create an empty file
 												vscode.postMessage({
 													type: "openFile",
-													text: `./.roo/rules-${currentMode.slug}/rules.md`,
+													text: `./.allytopic/rules-${currentMode.slug}/rules.md`,
 													values: {
 														create: true,
 														content: "",
@@ -1270,7 +1270,7 @@ const ModesView = ({ onDone }: ModesViewProps) => {
 										onClick={() =>
 											vscode.postMessage({
 												type: "openFile",
-												text: "./.roo/rules/rules.md",
+												text: "./.allytopic/rules/rules.md",
 												values: {
 													create: true,
 													content: "",
